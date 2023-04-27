@@ -41,7 +41,7 @@ Bu projede kullanmak için öncelikle bir API seçmelisiniz. [Bu adresten](https
 
 * [x] Uygulamadaki diğer actionlar neler? Tespit edin ve gerekli reducer ve actionları oluşturun.
 
-* [ ] `Item.js` ve `FavItem.js` dosyasını, seçtiğiniz API'den gelen veri yapısına uygun olarak düzenleyin ve stilleyin. Tailwind kullanmak zorunda değilsiniz.
+* [x] `Item.js` ve `FavItem.js` dosyasını, seçtiğiniz API'den gelen veri yapısına uygun olarak düzenleyin ve stilleyin. Tailwind kullanmak zorunda değilsiniz.
 
 * [x] `Store` içerisindeki verileri kullanmak istediğiniz yerlerde kullanmak için gerekli kısımları ekleyin.
 
