@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, NavLink } from "react-router-dom";
 import Item from "./components/Item";
 import FavItem from "./components/FavItem";
+import axios from 'axios';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addFav } from "./actions";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const loading = false;
-  const current = null;
-  const favs = [];
+  const favs = useSelector(store => store.favs);;
+  const [current, setCurrent] = useState(null);
+  const dispatch = useDispatch();
+  const isFetching = useSelector((depo) => depo.isFetching);
 
   function addToFavs() {
+    dispatch(addFav(current));
+    toast.success(`"${current.activity}" favorilere eklendi!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+  });
   }
 
+  function getData() {
+    const options = {
+      method: 'GET',
+      url: 'https://www.boredapi.com/api/activity',
+    };
+
+    try {
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+        setCurrent(response.data);
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, []);
 
   return (
     <div className="wrapper max-w-xl mx-auto px-4">
@@ -34,11 +71,12 @@ export default function App() {
 
       <Switch>
         <Route exact path="/">
-          {loading && <div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>}
+          {isFetching && <div className="bg-white p-6 text-center shadow-md">YÜKLENİYOR</div>}
           {current && <Item data={current} />}
 
           <div className="flex gap-3 justify-end py-3">
             <button
+              onClick={getData}
               className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500"
             >
               Başka bir tane
