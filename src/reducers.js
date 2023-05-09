@@ -19,7 +19,7 @@ function writeFavsToLocalStorage(state) {
 }
 
 function readFavsFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("s10g4"));
+  return JSON.parse(localStorage.getItem("s10g4")) || [];
 }
 
 export function myReducer(state = initial, action) {
